@@ -5,7 +5,7 @@ import '../pages/my_page.dart';
 import '../pages/travel_page.dart';
 
 class TabNavigator extends StatefulWidget {
-  TabNavigator({Key? key}) : super(key: key);
+  const TabNavigator({Key? key}) : super(key: key);
 
   @override
   State<TabNavigator> createState() => _TabNavigatorState();
