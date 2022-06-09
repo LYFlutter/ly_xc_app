@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:ly_xc_app/model/home_model.dart';
+import 'dart:convert';
+import '../dao/home_dao.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -20,6 +23,15 @@ class _HomePageState extends State<HomePage> {
 
   double appBarAlpha = 0;
 
+  String resultString = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    loadData();
+  }
+
   _onscroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
     if (alpha < 0) {
@@ -32,6 +44,33 @@ class _HomePageState extends State<HomePage> {
       appBarAlpha = alpha;
     });
   }
+
+  loadData() async {
+    try {
+      HomeModel homeModel = await HomeDao.fetch();
+
+      setState(() {
+        resultString = json.encode(homeModel);
+      });
+    } catch (e) {
+      String eStr = e.toString();
+      setState(() {
+        resultString = eStr;
+      });
+    }
+  }
+
+  // loadData() {
+  //   HomeDao.fetch().then((result) {
+  //     setState(() {
+  //       resultString = json.encode(result);
+  //     });
+  //   }).catchError((e) {
+  //     setState(() {
+  //       resultString = e.toString();
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     height: 120,
                     child: ListTile(
-                      title: Text('哈哈'),
+                      title: Text(resultString),
                     ),
                   )
                 ],
