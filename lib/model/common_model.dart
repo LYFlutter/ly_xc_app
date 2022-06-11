@@ -10,7 +10,7 @@ class CommonModel {
 
   factory CommonModel.fromJson(Map<String, dynamic> json) {
     return CommonModel(
-        icon: json['searchUrl'],
+        icon: json['icon'],
         title: json['title'],
         url: json['url'],
         statusBarColor: json['statusBarColor'],
